@@ -1,8 +1,25 @@
-USE alx_book_store;
+import mysql.connector
+from mysql.connector import Error
 
-INSERT INTO customer (customer_id, customer_name, email, address)
-VALUES 
-    (2, 'Blessing Malik', 'bmalik@sandtech.com', '124 Happiness Ave.'),
-    (3, 'Obed Ehoneah', 'eobed@sandtech.com', '125 Happiness Ave.'),
-    (4, 'Nehemial Kamolu', 'nkamolu@sandtech.com', '126 Happiness Ave.');
 
+# Name of the database to be created
+db_name = 'alx_book_store'
+
+try:
+    # Connect to MySQL server
+    cnx = mysql.connector.connect(**config)
+    cursor = cnx.cursor()
+    
+"""    # Create the database if it doesn't exist
+    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
+    print(f"Database '{db_name}' created successfully or already exists.")
+    
+except Error as err:
+    print(f"Error: {err}")
+
+finally:
+    # Close cursor and connection
+    if cursor:
+        cursor.close()
+    if cnx:
+        cnx.close()
