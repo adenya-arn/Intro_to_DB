@@ -1,30 +1,25 @@
 import mysql.connector
 from mysql.connector import Error
 
-
-# Name of the database to be created
+# Database name
 db_name = 'alx_book_store'
 
-def create_database():
-    try:
-        # Connect to MySQL server
-        connection = mysql.connector.connect(**config)
-        cursor = connection.cursor()
-        
-        # Create database if it doesn't exist
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS alx_book_store")
-        print(f"Database '{db_name}' created successfully or already exists!")
+try:
+    # Connect to MySQL server
+    cnx = mysql.connector.connect(**config)
+    cursor = cnx.cursor()
     
-    except Error as e:
-        print(f"Error: {e}")
+    # Create the database if it doesn't exist
+    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
+    print(f"Database '{db_name}' created successfully or already exists.")
     
-    finally:
-        # Close cursor and connection
-        if cursor:
-            cursor.close()
-        if connection:
-            connection.close()
+except mysql.connector.Error as err:
+    print(f"Error: {err}")
 
-# Run the function to create the database
-create_database()
+finally:
+    # Close cursor and connection
+    if cursor:
+        cursor.close()
+    if cnx:
+        cnx.close()
 
